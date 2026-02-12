@@ -1,1 +1,4 @@
 py/*
+.venv
+__pycache__
+ai_cli.egg-info
