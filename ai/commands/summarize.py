@@ -5,7 +5,7 @@ from ai.utils.files import read_file
 from ai.utils.input import read_stdin
 
 
-def ask(
+def summarize(
     question: str = typer.Argument(...),
     file: str = typer.Option(None, "-f"),
     no_stream: bool = typer.Option(False, "--no-stream"),
@@ -21,7 +21,7 @@ def ask(
         question += f"\n\nFile:\n{content}"
 
     if no_stream:
-        output = client.generate(question, no_stream)
+        output = client.complete(question, no_stream)
         print(output)
     else:
-        stream_output(client.generate(question, no_stream))
+        stream_output(client.stream(question, no_stream))

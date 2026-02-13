@@ -5,7 +5,7 @@ from ai.utils.files import read_file
 from ai.utils.input import read_stdin
 
 
-def ask(
+def explain(
     question: str = typer.Argument(...),
     file: str = typer.Option(None, "-f"),
     no_stream: bool = typer.Option(False, "--no-stream"),

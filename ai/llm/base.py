@@ -5,9 +5,9 @@ from typing import List, Dict, Generator
 class BaseLLMClient(ABC):
 
     @abstractmethod
-    def complete(self, messages: List[Dict]) -> str:
+    def chat(self, messages: List[Dict], no_stream) -> str | Generator[str, None, None]:
         pass
 
     @abstractmethod
-    def stream(self, messages: List[Dict]) -> Generator[str, None, None]:
+    def generate(self, prompt: str, no_stream) -> str | Generator[str, None, None]:
         pass

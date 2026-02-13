@@ -6,7 +6,7 @@ CONFIG_FILE = CONFIG_DIR / "config.yaml"
 
 DEFAULT_CONFIG = {
     "provider": "ollama",
-    "model": "qwen2:0.5b",
+    "model": "tinyllama",
     "temperature": 0.2,
     "max_tokens": 2000,
 }

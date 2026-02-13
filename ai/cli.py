@@ -2,6 +2,8 @@ import typer
 from ai.commands.ask import ask
 from ai.commands.chat import chat
 
+no_stream = False
+
 app = typer.Typer()
 
 app.command()(ask)
