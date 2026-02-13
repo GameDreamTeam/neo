@@ -13,7 +13,6 @@ class OllamaClient(BaseLLMClient):
 
     def chat(self, messages: List[Dict], no_stream) -> str | Generator[str, None, None]:
         try:
-            print("hello")
             shouldStream = not no_stream
             response = chat(
                 model=self.model,
@@ -45,7 +44,7 @@ class OllamaClient(BaseLLMClient):
             )
             if shouldStream:
                 for chunk in response:
-                    print(chunk["response"])
+                    print(chunk["response"], end="", flush=True)
             else: return response["response"]
 
         except Exception as e:
