@@ -1,6 +1,5 @@
-import time
 from typing import List, Dict, Generator
-from ollama import chat
+from ollama import chat, generate
 from ai.llm.base import BaseLLMClient
 from ai.config import load_config
 
@@ -12,35 +11,42 @@ class OllamaClient(BaseLLMClient):
         self.model = config["model"]
         self.temperature = config["temperature"]
 
-    def complete(self, messages: List[Dict]) -> str:
+    def chat(self, messages: List[Dict], no_stream) -> str | Generator[str, None, None]:
         try:
+            shouldStream = not no_stream
             response = chat(
                 model=self.model,
                 messages=messages,
-                stream=False,
+                stream=shouldStream,
                 # options={
                 #     "temperature": self.temperature
                 # }
             )
-            return response["message"]["content"]
+            if shouldStream:
+                for chunk in response:
+                  if "message" in chunk:
+                    yield chunk["message"]["content"]
+            else: return response["message"]["content"]
 
         except Exception as e:
             raise RuntimeError(f"Ollama request failed: {e}")
 
-    def stream(self, messages: List[Dict]) -> Generator[str, None, None]:
+    def generate(self, prompt: str, no_stream) -> str | Generator[str, None, None]:
         try:
-            stream = chat(
+            shouldStream = not no_stream
+            response = generate(
                 model=self.model,
-                messages=messages,
-                stream=True,
+                prompt=prompt,
+                stream=shouldStream,
                 # options={
                 #     "temperature": self.temperature
                 # }
             )
-
-            for chunk in stream:
-                if "message" in chunk:
-                    yield chunk["message"]["content"]
+            if shouldStream:
+                for chunk in response:
+                    if "response" in chunk:
+                        yield chunk["response"]
+            else: return response["response"]
 
         except Exception as e:
-            raise RuntimeError(f"Ollama streaming failed: {e}")
+            raise RuntimeError(f"Ollama request failed: {e}")

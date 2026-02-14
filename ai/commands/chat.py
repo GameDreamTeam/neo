@@ -6,7 +6,7 @@ from ai.llm.ollama_client import OllamaClient
 console = Console()
 
 
-def chat():
+def chat(no_stream: bool = typer.Option(False, "--no-stream")):
     """
     Interactive chat session.
     """
@@ -37,7 +37,7 @@ def chat():
             console.print("\n[bold yellow]AI[/bold yellow]: ", end="")
 
             response_chunks = []
-            for chunk in client.stream(messages):
+            for chunk in client.chat(messages, no_stream):
                 console.print(chunk, end="", soft_wrap=True)
                 response_chunks.append(chunk)
 

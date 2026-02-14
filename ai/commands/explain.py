@@ -5,16 +5,12 @@ from ai.utils.files import read_file
 from ai.utils.input import read_stdin
 
 
-def ask(
-    question: str = typer.Argument(...),
+def explain(
     file: str = typer.Option(None, "-f"),
     no_stream: bool = typer.Option(False, "--no-stream"),
 ):
     client = OllamaClient()
-
-    piped_input = read_stdin()
-    if piped_input:
-        question += f"\n\nInput:\n{piped_input}"
+    question = "Explain the following content in a clear and concise manner, breaking down complex concepts into simpler terms. Provide a detailed explanation that helps the reader understand the material thoroughly, while avoiding unnecessary jargon or technical language."
 
     if file:
         content = read_file(file)

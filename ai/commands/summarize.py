@@ -5,16 +5,13 @@ from ai.utils.files import read_file
 from ai.utils.input import read_stdin
 
 
-def ask(
-    question: str = typer.Argument(...),
+def summarize(
     file: str = typer.Option(None, "-f"),
     no_stream: bool = typer.Option(False, "--no-stream"),
 ):
     client = OllamaClient()
 
-    piped_input = read_stdin()
-    if piped_input:
-        question += f"\n\nInput:\n{piped_input}"
+    question = "Summarize the following content in a concise manner, highlighting the key points and main ideas. Provide a clear and brief overview that captures the essence of the material without unnecessary details."
 
     if file:
         content = read_file(file)
