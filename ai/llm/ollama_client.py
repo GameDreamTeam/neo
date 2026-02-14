@@ -44,7 +44,8 @@ class OllamaClient(BaseLLMClient):
             )
             if shouldStream:
                 for chunk in response:
-                    print(chunk["response"], end="", flush=True)
+                    if "response" in chunk:
+                        yield chunk["response"]
             else: return response["response"]
 
         except Exception as e:
