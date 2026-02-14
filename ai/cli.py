@@ -4,7 +4,6 @@ from ai.commands.chat import chat
 from ai.commands.summarize import summarize
 from ai.commands.explain import explain
 
-no_stream = False
 
 app = typer.Typer()
 

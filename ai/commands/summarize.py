@@ -11,9 +11,11 @@ def summarize(
 ):
     client = OllamaClient()
 
+    question = "Summarize the following content in a concise manner, highlighting the key points and main ideas. Provide a clear and brief overview that captures the essence of the material without unnecessary details."
+
     if file:
         content = read_file(file)
-        question = f"\n\nFile:\n{content}"
+        question += f"\n\nFile:\n{content}"
 
     if no_stream:
         output = client.generate(question, no_stream)
