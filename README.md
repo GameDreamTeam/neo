@@ -1,131 +1,149 @@
 # 🤖 ai — Local-First CLI AI Assistant
 
-A fast, streaming, developer-focused AI assistant built for the terminal.  
+A fast, streaming, developer-focused AI assistant for the terminal.
+
 Designed to feel like `git` or `kubectl`.
 
 ---
 
 ## 🚀 Overview
 
-`ai` integrates a local LLM directly into your developer workflows:
+`ai` integrates a local LLM directly into your developer workflow.
+
+### Core Features
 
 - ⚡ Streaming responses
-- 🧠 Interactive chat with memory
-- 📂 File analysis (`ai ask -f file.txt`)
-- 🔌 Pipe support (`cat logs | ai ask`)
-- ⚙️ YAML configuration
+- 🧠 Interactive chat with history
+- 📂 File analysis
+- 🔌 Pipe support (Unix-style workflows)
+- ⚙️ YAML-based configuration
 - 🛠 Local LLMs via Ollama
+- 🧩 Prompt-builder architecture
 
 ---
 
 ## ✨ Quick Start
 
 ```bash
-ai chat                    # Interactive mode
-ai ask -f README.md        # Analyze file
-cat error.log | ai ask     # Pipe input
+ai chat
+ai ask "hello"
+ai summarize -f README.md
+cat logs.log | ai debug
 ```
-
----
 
 ## 🛠 Installation
 
-### 1️⃣ Clone & Setup
-
+### 1️⃣ Clone Repository
 ```bash
 git clone https://github.com/GameDreamTeam/ai-assistant.git
-cd ai-cli
+cd ai-assistant
+```
 
-# Create virtual environment
+### 2️⃣ Create Virtual Environment
+```bash
 python -m venv .venv
+```
 
-# Activate (Linux/macOS)
+Activate:
+
+**Linux/macOS**
+```bash
 source .venv/bin/activate
+```
 
-# Activate (Windows)
-# .venv\Scripts\activate
+**Windows**
+```bash
+.venv\Scripts\activate
+```
 
-# Install in editable mode
+### 3️⃣ Install Package
+```bash
 pip install -e .
 ```
 
----
+## 🧠 Install Ollama (Required)
 
-### 2️⃣ Install Ollama (Required)
+### Option A — Native Install
+Download: [https://ollama.com](https://ollama.com)
 
-#### Option A: Native Install
-
-1. Download from: https://ollama.com  
-2. Pull a lightweight model:
-
+Pull a model:
 ```bash
-ollama pull tinyllama
+ollama pull qwen2:0.5b
 ```
 
-#### Option B: Docker
-
+### Option B — Docker
 ```bash
 docker run -d -p 11434:11434 --name ollama ollama/ollama
-docker exec -it ollama ollama pull tinyllama
+docker exec -it ollama ollama pull qwen2:0.5b
 ```
 
----
-
-### 3️⃣ Verify Installation
-
+### Verify
 ```bash
 curl http://localhost:11434/api/tags
 ai ask "Hello world!"
 ```
 
----
+## ⚙️ Configuration
 
-## 🏗️ Commands
+Config file location: `~/.ai/config.yaml`
 
-| Command            | Use Case                     |
-|-------------------|------------------------------|
-| `ai ask`          | One-shot questions           |
-| `ai chat`         | Interactive sessions         |
-| `ai ask -f file`  | File analysis                |
-| `cat \| ai ask`   | Piped input                  |
-
----
-
-## 🔧 Configuration
-
-Create a config file at:
-
-```
-~/.ai/config.yaml
-```
-
-Example configuration:
-
+Example:
 ```yaml
 model: tinyllama
-ollama_host: http://localhost:11434
+temperature: 0.2
+max_tokens: 512
 ```
 
----
+## 🏗️ Available Commands
 
-## 📌 Example Usage
+| Command      | Description                          |
+|--------------|--------------------------------------|
+| `ai ask`     | Ask one-shot questions               |
+| `ai chat`    | Interactive chat session             |
+| `ai summarize` | Summarize files/text               |
+| `ai explain` | Explain technical content            |
+| `ai debug`   | Analyze logs (pipe-friendly)         |
+| `ai fix`     | Analyze & fix configs/code           |
 
+## 📌 Usage Examples
+
+### Ask Questions
 ```bash
-ai ask "Explain how Redis works"
-ai ask -f error.log "Find the root cause"
-git diff | ai ask "Summarize these changes"
+ai ask "Explain Kubernetes"
 ```
 
----
+### Summarize File
+```bash
+ai summarize -f src/summarize.txt
+```
 
-## 🧠 Powered By
+### Explain Technical Content
+```bash
+ai explain -f src/mock/explain.txt
+```
 
-- Python
-- Ollama
-- Local LLMs
+### Debug Logs (PRD Workflow)
+```bash
+cat mock/logs.log | ai debug
+```
 
----
+Example:
+```bash
+kubectl logs api-pod | ai debug
+```
 
-## 📄 License
+Output includes:
+- Root cause
+- Failure explanation
+- Suggested fix
+- Prevention tips
 
-MIT License
+### Fix Configurations
+```bash
+ai fix src/nginx.conf
+```
+
+Returns:
+- Issues found
+- Corrected version
+- Explanation
