@@ -6,7 +6,7 @@ from ai.core.prompt_builder import build_fix_messages
 
 
 def fix(
-    file: str = typer.Argument(...),
+    file: str = typer.Option(..., "-f"),
     no_stream: bool = typer.Option(False, "--no-stream"),
 ):
 
