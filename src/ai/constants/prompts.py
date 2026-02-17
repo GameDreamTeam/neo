@@ -33,7 +33,7 @@ Logs:
 """
 
 FIX_PROMPT = """
-Analyze the following configuration/code.
+Analyze the following configuration/code, identify issues and implement a fix in a corrected version of the file.
 
 Return:
 
