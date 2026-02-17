@@ -140,7 +140,7 @@ Output includes:
 
 ### Fix Configurations
 ```bash
-ai fix -f src/nginx.conf
+ai fix -f src/mock/nginx.conf
 ```
 
 Returns:
