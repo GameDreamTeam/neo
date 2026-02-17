@@ -1,7 +1,7 @@
 from pathlib import Path
 import yaml
 
-CONFIG_DIR = Path.home() / ".ai"
+CONFIG_DIR = Path.home() / ".src"
 CONFIG_FILE = CONFIG_DIR / "config.yaml"
 
 DEFAULT_CONFIG = {
