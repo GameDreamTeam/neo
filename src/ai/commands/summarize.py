@@ -4,7 +4,10 @@ from ai.utils.stream import stream_output
 from ai.utils.files import read_file
 from ai.core.prompt_builder import build_summarize_prompt
 
-def summarize(file: str = typer.Option(None, "-f"), no_stream=False):
+def summarize(
+    file: str = typer.Option(..., "-f"),
+    no_stream: bool = typer.Option(False, "--no-stream"),
+):
 
     client = OllamaClient()
 
