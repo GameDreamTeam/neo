@@ -1,0 +1,1 @@
+Docker uses namespaces and cgroups for isolation.

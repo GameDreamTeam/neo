@@ -1,0 +1,15 @@
+[project]
+name = "ai-cli"
+version = "0.1.0"
+description = "Local-first AI CLI assistant for developers"
+requires-python = ">=3.9"
+
+dependencies = [
+    "typer[all]",
+    "rich",
+    "pyyaml",
+    "ollama"
+]
+
+[project.scripts]
+ai = "ai.cli:app"
